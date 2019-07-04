@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:planets/font_style.dart';
+import 'package:planets/model/planet.dart';
 
 class PlanetRow extends StatelessWidget {
+  final Planet planet;
+
+  PlanetRow(this.planet);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -8,7 +14,8 @@ class PlanetRow extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           PlanetCard(),
-          PlanetThumbnail(),
+          PlanetThumbnail(thumbnail: planet.image),
+          PlanetCardContent(planet),
         ],
       ),
     );
@@ -38,15 +45,85 @@ class PlanetCard extends StatelessWidget {
 }
 
 class PlanetThumbnail extends StatelessWidget {
+  final String thumbnail;
+
+  const PlanetThumbnail({Key key, this.thumbnail}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 16.0),
       alignment: FractionalOffset.centerLeft,
       child: Image.asset(
-        "assets/images/mars.png",
+        thumbnail,
         width: 92,
         height: 92,
+      ),
+    );
+  }
+}
+
+class PlanetValue extends StatelessWidget {
+  final String icon;
+  final String text;
+
+  const PlanetValue({Key key, this.icon, this.text}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: Row(
+        children: <Widget>[
+          Image.asset(icon, height: 12.0),
+          Container(width: 8.0),
+          Text(
+            text,
+            style: regularTextStyle,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class PlanetCardContent extends StatelessWidget {
+  final Planet planet;
+
+  PlanetCardContent(this.planet);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.fromLTRB(116.0, 16.0, 16.0, 16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(height: 4.0),
+          Text(
+            planet.name,
+            style: headerTextStyle,
+          ),
+          Container(height: 10.0),
+          Text(planet.location, style: subHeaderTextStyle),
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 8.0),
+            height: 2.0,
+            width: 18.0,
+            color: Color(0xff00c6ff),
+          ),
+          Row(
+            children: <Widget>[
+              PlanetValue(
+                icon: "assets/images/ic_distance.png",
+                text: planet.distance,
+              ),
+              PlanetValue(
+                icon: "assets/images/ic_gravity.png",
+                text: planet.gravity,
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
