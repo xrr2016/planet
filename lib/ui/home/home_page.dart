@@ -6,16 +6,11 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: <Widget>[
-            GradientAppBar('treva'),
-            HomePageBody(),
-            HomePageBody(),
-            HomePageBody(),
-            HomePageBody(),
-          ],
-        ),
+      body: Column(
+        children: <Widget>[
+          GradientAppBar('treva'),
+          HomePageBody(),
+        ],
       ),
     );
   }

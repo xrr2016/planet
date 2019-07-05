@@ -51,6 +51,8 @@ class PlanetThumbnail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint('------------thumbnail ${this.thumbnail} ---------');
+
     return Container(
       margin: EdgeInsets.symmetric(vertical: 16.0),
       alignment: FractionalOffset.centerLeft,
@@ -75,7 +77,7 @@ class PlanetValue extends StatelessWidget {
       child: Row(
         children: <Widget>[
           Image.asset(icon, height: 12.0),
-          Container(width: 8.0),
+          SizedBox(width: 8.0),
           Text(
             text,
             style: regularTextStyle,
@@ -94,23 +96,17 @@ class PlanetCardContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.fromLTRB(116.0, 16.0, 16.0, 16.0),
+      margin: EdgeInsets.only(left: 116, top: 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Container(height: 4.0),
           Text(
             planet.name,
             style: headerTextStyle,
           ),
-          Container(height: 10.0),
+          SizedBox(height: 4.0),
           Text(planet.location, style: subHeaderTextStyle),
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 8.0),
-            height: 2.0,
-            width: 18.0,
-            color: Color(0xff00c6ff),
-          ),
+          BlueBar(),
           Row(
             children: <Widget>[
               PlanetValue(
@@ -125,6 +121,22 @@ class PlanetCardContent extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class BlueBar extends StatelessWidget {
+  const BlueBar({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 8.0),
+      height: 2.0,
+      width: 18.0,
+      color: Color(0xff00c6ff),
     );
   }
 }
