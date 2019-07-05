@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:planets/ui/detail/detail_page.dart';
 import 'package:planets/ui/home/home_page.dart';
 
 void main() {
@@ -16,6 +17,9 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "Planets",
       home: HomePage(),
+      routes: {
+        DetailPage.routeName: (_) => DetailPage(),
+      },
     );
   }
 }

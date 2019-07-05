@@ -9,14 +9,17 @@ class PlanetRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-      child: Stack(
-        children: <Widget>[
-          PlanetCard(),
-          PlanetThumbnail(thumbnail: planet.image),
-          PlanetCardContent(planet),
-        ],
+    return GestureDetector(
+      onTap: () => Navigator.pushNamed(context, '/detail', arguments: planet),
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+        child: Stack(
+          children: <Widget>[
+            PlanetCard(),
+            PlanetThumbnail(thumbnail: planet.image, planetId: planet.id),
+            PlanetCardContent(planet),
+          ],
+        ),
       ),
     );
   }
@@ -46,20 +49,23 @@ class PlanetCard extends StatelessWidget {
 
 class PlanetThumbnail extends StatelessWidget {
   final String thumbnail;
+  final String planetId;
 
-  const PlanetThumbnail({Key key, this.thumbnail}) : super(key: key);
+  const PlanetThumbnail({Key key, this.thumbnail, this.planetId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    debugPrint('------------thumbnail ${this.thumbnail} ---------');
-
     return Container(
       margin: EdgeInsets.symmetric(vertical: 16.0),
       alignment: FractionalOffset.centerLeft,
-      child: Image.asset(
-        thumbnail,
-        width: 92,
-        height: 92,
+      child: Hero(
+        tag: "planet-hero-$planetId",
+        child: Image.asset(
+          thumbnail,
+          width: 92,
+          height: 92,
+        ),
       ),
     );
   }
