@@ -19,3 +19,9 @@ final headerTextStyle = baseTextStyle.copyWith(
 final subHeaderTextStyle = regularTextStyle.copyWith(
   fontSize: 14.0,
 );
+
+final commonTextStyle = baseTextStyle.copyWith(
+  color: const Color(0xffb6b2df),
+  fontSize: 14.0,
+  fontWeight: FontWeight.w400,
+);

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:planets/font_style.dart';
 import 'package:planets/model/planet.dart';
+import 'package:planets/ui/detail/planet_summary.dart';
+import 'package:planets/ui/widget/separator.dart';
 
 class DetailPage extends StatelessWidget {
   static const routeName = '/detail';
@@ -13,7 +16,6 @@ class DetailPage extends StatelessWidget {
         child: Image.network(
           planet.picture,
           fit: BoxFit.cover,
-          height: 300,
         ),
         constraints: BoxConstraints.expand(height: 300),
       );
@@ -37,12 +39,37 @@ class DetailPage extends StatelessWidget {
       );
     }
 
-    // Widget _getContent() {
-    //   return ListView(
-    //     padding: EdgeInsets.fromLTRB(0.0, 72.0, 0.0, 32.0),
-    //     children: <Widget>[],
-    //   );
-    // }
+    Widget _getContent() {
+      final _overviewTitle = "Overview".toUpperCase();
+
+      return ListView(
+        padding: EdgeInsets.fromLTRB(0.0, 72.0, 0.0, 32.0),
+        children: <Widget>[
+          PlanetSummary(planet: planet),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 32.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  _overviewTitle,
+                  style: headerTextStyle,
+                ),
+                Separator(),
+                Text(planet.description, style: commonTextStyle),
+              ],
+            ),
+          ),
+        ],
+      );
+    }
+
+    Container _getToolbar(BuildContext context) {
+      return new Container(
+        margin: new EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+        child: new BackButton(color: Colors.white),
+      );
+    }
 
     return Scaffold(
       body: Container(
@@ -52,8 +79,8 @@ class DetailPage extends StatelessWidget {
           children: <Widget>[
             _getBackground(),
             _getGradient(),
-            // _getContent(),
-            // _getToolbar(context),
+            _getContent(),
+            _getToolbar(context),
             // Text(planet.name),
             // Hero(
             //   tag: 'planet-hero-${planet.id}',

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:planets/font_style.dart';
 import 'package:planets/model/planet.dart';
+import 'package:planets/ui/widget/separator.dart';
 
 class PlanetRow extends StatelessWidget {
   final Planet planet;
@@ -11,14 +12,16 @@ class PlanetRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => Navigator.pushNamed(context, '/detail', arguments: planet),
-      child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-        child: Stack(
-          children: <Widget>[
-            PlanetCard(),
-            PlanetThumbnail(thumbnail: planet.image, planetId: planet.id),
-            PlanetCardContent(planet),
-          ],
+      child: InkWell(
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          child: Stack(
+            children: <Widget>[
+              PlanetCard(),
+              PlanetThumbnail(thumbnail: planet.image, planetId: planet.id),
+              PlanetCardContent(planet),
+            ],
+          ),
         ),
       ),
     );
@@ -112,7 +115,7 @@ class PlanetCardContent extends StatelessWidget {
           ),
           SizedBox(height: 4.0),
           Text(planet.location, style: subHeaderTextStyle),
-          BlueBar(),
+          Separator(),
           Row(
             children: <Widget>[
               PlanetValue(
@@ -127,22 +130,6 @@ class PlanetCardContent extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class BlueBar extends StatelessWidget {
-  const BlueBar({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 8.0),
-      height: 2.0,
-      width: 18.0,
-      color: Color(0xff00c6ff),
     );
   }
 }
